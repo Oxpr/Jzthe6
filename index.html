@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Jzthe6 | YouTube Channel</title>
+    <style>
+      :root {
+        --bg: #040505;
+        --bg-2: #0b0e0d;
+        --panel: rgba(15, 18, 16, 0.9);
+        --panel-soft: rgba(255, 255, 255, 0.03);
+        --muted: #a7b0a8;
+        --text: #f2f6f2;
+        --line: rgba(255, 255, 255, 0.08);
+        --accent: #67e8f9;
+        --accent-2: #06b6d4;
+        --shadow: rgba(0, 0, 0, 0.35);
+      }
+
+      * { box-sizing: border-box; }
+
+      html { scroll-behavior: smooth; }
+
+      body {
+        margin: 0;
+        background:
+          radial-gradient(circle at top, rgba(103, 232, 249, 0.08), transparent 22%),
+          linear-gradient(180deg, #020303 0%, #0b0d0c 100%);
+        color: var(--text);
+        font-family: Inter, "Segoe UI", sans-serif;
+      }
+
+      a { color: inherit; text-decoration: none; }
+
+      .app {
+        min-height: 100vh;
+      }
+
+      .topbar {
+        position: sticky;
+        top: 0;
+        z-index: 30;
+      
+        height: 68px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 24px;
+        background: rgba(4, 5, 5, 0.78);
+        backdrop-filter: blur(14px);
+        border-bottom: 1px solid var(--line);
+      }
+
+      .left, .center, .right {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+      }
+
+      .icon-btn, .mic-btn {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: grid;
+        place-items: center;
+        background: transparent;
+        border: 1px solid rgba(255,255,255,0.08);
+        color: var(--text);
+        cursor: pointer;
+        transition: 0.2s ease;
+      }
+
+      .icon-btn:hover, .mic-btn:hover {
+        background: rgba(255,255,255,0.04);
+      }
+
+      .logo-wrap {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-weight: 800;
+        letter-spacing: 0.04em;
+      }
+
+      .yt-badge {
+        width: 30px;
+        height: 22px;
+        border-radius: 7px;
+        background: linear-gradient(135deg, var(--accent), var(--accent-2));
+        box-shadow: 0 10px 28px rgba(103, 232, 249, 0.22);
+      }
+
+      .yt-badge::before {
+        content: "";
+        display: block;
+        width: 0;
+        height: 0;
+        margin-left: 11px;
+        margin-top: 5px;
+        border-top: 6px solid transparent;
+        border-bottom: 6px solid transparent;
+        border-left: 9px solid #09120d;
+      }
+
+      .search-wrap {
+        flex: 1;
+        max-width: 700px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+      }
+
+      .search-box {
+        width: min(100%, 560px);
+        height: 42px;
+        display: flex;
+        align-items: center;
+        background: rgba(255,255,255,0.03);
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        overflow: hidden;
+      }
+
+      .search-box input {
+        flex: 1;
+        background: transparent;
+        border: none;
+        outline: none;
+        color: var(--text);
+        padding: 0 18px;
+        font-size: 15px;
+      }
+
+      .search-box input::placeholder {
+        color: rgba(255,255,255,0.52);
+      }
+
+      .search-btn {
+        width: 64px;
+        height: 100%;
+        border: none;
+        background: rgba(255,255,255,0.04);
+        color: white;
+        cursor: pointer;
+      }
+
+      .create-btn {
+        padding: 10px 16px;
+        border-radius: 999px;
+        border: 1px solid rgba(255,255,255,0.08);
+        background: rgba(255,255,255,0.04);
+        color: white;
+        font-weight: 700;
+        cursor: pointer;
+      }
+
+      .profile-dot {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, var(--accent), #1ed3a7);
+        display: grid;
+        place-items: center;
+        font-weight: 900;
+        font-size: 12px;
+        color: #08140d;
+      }
+
+      .page {
+        max-width: 1280px;
+        margin: 0 auto;
+        padding: 26px 20px 64px;
+      }
+
+      .channel-banner {
+        position: relative;
+        min-height: 360px;
+        border-radius: 30px;
+        overflow: hidden;
+        border: 1px solid var(--line);
+        background:
+          linear-gradient(120deg, rgba(10, 14, 12, 0.9), rgba(7, 10, 11, 0.52)),
+          url('https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=1600&q=80') center/cover;
+        box-shadow: 0 30px 70px rgba(0,0,0,0.35);
+      }
+
+      .channel-banner::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(90deg, rgba(4,5,5,0.9) 0%, rgba(4,5,5,0.32) 38%, rgba(4,5,5,0.2) 100%);
+      }
+
+      .banner-text {
+        position: relative;
+        z-index: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: end;
+        min-height: 360px;
+        padding: 36px clamp(20px, 3vw, 42px);
+        max-width: 760px;
+      }
+
+      .banner-kicker {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        width: fit-content;
+        padding: 8px 14px;
+        border-radius: 999px;
+        background: rgba(9, 17, 13, 0.46);
+        border: 1px solid rgba(103, 232, 249, 0.3);
+        font-size: 11px;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--accent);
+        font-weight: 800;
+      }
+
+      .banner-kicker::before {
+        content: "";
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--accent);
+        box-shadow: 0 0 12px rgba(103, 232, 249, 0.9);
+      }
+
+      .banner-title {
+        margin: 18px 0 6px;
+        font-size: clamp(36px, 5vw, 74px);
+        line-height: 0.92;
+        letter-spacing: -0.08em;
+        font-weight: 900;
+      }
+
+      .banner-subtitle {
+        margin: 0;
+        max-width: 560px;
+        color: rgba(242, 246, 242, 0.75);
+        font-size: clamp(15px, 1.7vw, 20px);
+        line-height: 1.55;
+      }
+
+      .banner-actions {
+        display: flex;
+        gap: 14px;
+        flex-wrap: wrap;
+        margin-top: 22px;
+      }
+
+      .hero-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border: none;
+        border-radius: 14px;
+        font-weight: 800;
+        letter-spacing: 0.01em;
+        padding: 14px 18px;
+        cursor: pointer;
+      }
+
+      .hero-btn.primary {
+        background: linear-gradient(135deg, var(--accent), var(--accent-2));
+        color: #051009;
+        box-shadow: 0 18px 32px rgba(6, 182, 212, 0.2);
+      }
+
+      .hero-btn.secondary {
+        background: rgba(255,255,255,0.04);
+        color: var(--text);
+        border: 1px solid var(--line);
+      }
+
+      .channel-header {
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+        gap: 22px;
+        margin-top: 26px;
+        padding: 0 8px;
+      }
+
+      .channel-meta {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+      }
+
+      .avatar {
+        width: 92px;
+        height: 92px;
+        display: block;
+        border-radius: 28px;
+        object-fit: cover;
+        border: 1px solid rgba(103, 232, 249, 0.32);
+        box-shadow: 0 20px 40px rgba(6, 182, 212, 0.12);
+      }
+
+      .identity h1 {
+        margin: 0 0 8px;
+        font-size: clamp(30px, 2.3vw, 46px);
+        line-height: 1;
+        letter-spacing: -0.06em;
+      }
+
+      .identity .handle {
+        color: var(--muted);
+        margin-bottom: 14px;
+        font-size: 15px;
+      }
+
+      .channel-stats {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 16px;
+        color: var(--muted);
+        font-size: 14px;
+      }
+
+      .channel-stats strong {
+        color: var(--text);
+      }
+
+      .header-actions {
+        display: flex;
+        gap: 12px;
+        align-items: center;
+      }
+
+      .primary-btn, .secondary-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border: none;
+        border-radius: 999px;
+        padding: 12px 18px;
+        font-weight: 800;
+        cursor: pointer;
+      }
+
+      .primary-btn {
+        background: linear-gradient(135deg, var(--accent), var(--accent-2));
+        color: #04150d;
+        box-shadow: 0 18px 32px rgba(6, 182, 212, 0.18);
+      }
+
+      .secondary-btn {
+        background: rgba(255,255,255,0.03);
+        border: 1px solid var(--line);
+        color: var(--text);
+      }
+
+      .tabs {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-top: 30px;
+        padding: 0 6px;
+      }
+
+      .tab {
+        padding: 10px 16px;
+        border-radius: 999px;
+        background: transparent;
+        color: var(--muted);
+        border: 1px solid transparent;
+        font-weight: 700;
+        transition: all 0.2s ease;
+      }
+
+      .tab.active {
+        background: rgba(103, 232, 249, 0.06);
+        border-color: rgba(103, 232, 249, 0.2);
+        color: var(--text);
+      }
+
+      .content-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 1.7fr) minmax(260px, 0.7fr);
+        gap: 22px;
+        margin-top: 26px;
+      }
+
+      .videos {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 18px;
+      }
+
+      .video-card {
+        display: block;
+        background: rgba(255,255,255,0.02);
+        border: 1px solid var(--line);
+        border-radius: 20px;
+        overflow: hidden;
+        transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+        box-shadow: inset 0 1px rgba(255,255,255,0.02);
+      }
+
+      .video-card:hover {
+        transform: translateY(-4px);
+        border-color: rgba(103, 232, 249, 0.18);
+        box-shadow: 0 16px 30px rgba(0,0,0,0.22);
+      }
+
+      .thumb {
+        display: block;
+        width: 100%;
+        height: 194px;
+        object-fit: cover;
+      }
+
+      .video-info {
+        padding: 15px 14px 16px;
+      }
+
+      .video-title {
+        margin: 0 0 10px;
+        font-size: 1rem;
+        line-height: 1.45;
+        font-weight: 700;
+      }
+
+      .video-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        color: var(--muted);
+        font-size: 13px;
+      }
+
+      .sidebar {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+      }
+
+      .panel {
+        background: rgba(255,255,255,0.02);
+        border: 1px solid var(--line);
+        border-radius: 20px;
+        padding: 18px;
+      }
+
+      .panel h3 {
+        margin: 0 0 14px;
+        font-size: 1.05rem;
+      }
+
+      .stats-list {
+        display: grid;
+        gap: 13px;
+      }
+
+      .stat-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-size: 14px;
+        color: var(--muted);
+      }
+
+      .stat-row strong {
+        color: var(--text);
+      }
+
+      .mini-box {
+        width: 100%;
+        height: 72px;
+        border-radius: 14px;
+        background: linear-gradient(135deg, rgba(103,232,249,0.1), rgba(6,182,212,0.18));
+        border: 1px solid rgba(103,232,249,0.2);
+        display: grid;
+        place-items: center;
+        font-weight: 800;
+        letter-spacing: 0.12em;
+        text-align: center;
+        color: var(--accent);
+        margin-top: 12px;
+      }
+
+      .mini-box.live {
+        border-color: rgba(255, 50, 50, 0.4);
+        background: linear-gradient(135deg, rgba(255, 50, 50, 0.12), rgba(255, 50, 50, 0.2));
+        color: #ff7777;
+      }
+
+      .live-link {
+        display: inline-block;
+        color: var(--accent);
+        font-weight: 700;
+      }
+
+      .socials {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+
+      .social {
+        width: 38px;
+        height: 38px;
+        border-radius: 50%;
+        display: grid;
+        place-items: center;
+        background: rgba(255,255,255,0.04);
+        border: 1px solid var(--line);
+        color: white;
+        font-weight: 800;
+      }
+
+      .social.email-link {
+        width: auto;
+        padding: 0 14px;
+        border-radius: 999px;
+      }
+
+      .toast {
+        position: fixed;
+        right: 20px;
+        bottom: 20px;
+        padding: 10px 14px;
+        border-radius: 12px;
+        background: rgba(9, 15, 12, 0.96);
+        border: 1px solid rgba(103, 232, 249, 0.2);
+        color: white;
+        box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+        opacity: 0;
+        transform: translateY(12px);
+        pointer-events: none;
+        transition: opacity 0.2s ease, transform 0.2s ease;
+      }
+
+      .toast.show {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .video-empty {
+        grid-column: 1 / -1;
+        min-height: 160px;
+        display: grid;
+        place-items: center;
+        background: rgba(255,255,255,0.02);
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        color: var(--muted);
+      }
+
+      @media (max-width: 980px) {
+        .content-grid { grid-template-columns: 1fr; }
+        .videos { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      }
+
+      @media (max-width: 720px) {
+        .topbar { padding: 0 12px; }
+        .left { gap: 8px; }
+        .center { flex: 1; }
+        .search-wrap { max-width: none; }
+
+        .channel-header {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+
+        .videos { grid-template-columns: 1fr; }
+        .banner-title { font-size: 38px; }
+        .channel-banner { min-height: 300px; }
+        .banner-text { min-height: 300px; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="app">
+      <header class="topbar">
+        <div class="left">
+          <button class="icon-btn" aria-label="Menu">☰</button>
+          <div class="logo-wrap" aria-label="YouTube logo">
+            <div class="yt-badge" aria-hidden="true"></div>
+            <span>Jzthe6</span>
+          </div>
+        </div>
+
+        <div class="center search-wrap">
+          <div class="search-box" role="search">
+            <input type="text" placeholder="Search videos" aria-label="Search" />
+            <button class="search-btn" type="button" aria-label="Search">⌕</button>
+          </div>
+          <button class="mic-btn" type="button" aria-label="Voice search">🎙</button>
+        </div>
+
+        <div class="right">
+          <button class="create-btn" type="button">＋ Create</button>
+          <a class="icon-btn" href="https://www.youtube.com/@Jzthe61438" target="_blank" rel="noopener noreferrer" aria-label="Open Jzthe6 on YouTube to manage notifications" title="Manage channel notifications on YouTube">🔔</a>
+          <div class="profile-dot">J</div>
+        </div>
+      </header>
+
+      <main class="page">
+        <section class="channel-banner">
+          <div class="banner-text">
+            <div class="banner-kicker">Official launch v2.0</div>
+            <h2 class="banner-title">Real. Serious.<br />Creator energy.</h2>
+            <p class="banner-subtitle">Hey! My name is Jzthe6/Jack</p>
+            <div class="banner-actions">
+              <a class="hero-btn primary subscribe-link" href="https://www.youtube.com/@Jzthe61438?sub_confirmation=1" target="_blank" rel="noopener noreferrer">Subscribe now</a>
+              <button class="hero-btn secondary" type="button">Explore videos</button>
+            </div>
+          </div>
+        </section>
+
+        <section class="channel-header">
+          <div class="channel-meta">
+            <img class="avatar" src="https://yt3.ggpht.com/1gQ3ASqs9Xcvvt4r7p-krK92fvtxOrdEfQX-rKqiB_elB37bgzVEghhqR-0GkJOjYsNbRxcR=s600-c-k-c0x00ffffff-no-rj-rp-mo" alt="Jzthe6 profile picture" />
+            <div class="identity">
+              <h1>Jzthe6</h1>
+              <div class="handle">@Jzthe61438</div>
+              <div class="channel-stats">
+                <span><strong>234</strong> subscribers</span>
+                <span><strong>224</strong> videos</span>
+                <a class="live-link" id="header-live-status" href="https://www.youtube.com/channel/UC_wsV8p1jFdp9yO_O_FtA-g/live" target="_blank" rel="noopener noreferrer">LIVE NOW</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="header-actions">
+            <a class="primary-btn subscribe-link" href="https://www.youtube.com/@Jzthe61438?sub_confirmation=1" target="_blank" rel="noopener noreferrer">Subscribe</a>
+          </div>
+        </section>
+
+        <nav class="tabs" aria-label="Channel navigation">
+          <button class="tab active" type="button" data-tab="Home">Home</button>
+          <button class="tab" type="button" data-tab="Videos">Videos</button>
+          <button class="tab" type="button" data-tab="Shorts">Shorts</button>
+          <button class="tab" type="button" data-tab="Live">Live</button>
+          <button class="tab" type="button" data-tab="Playlists">Playlists</button>
+          <button class="tab" type="button" data-tab="Community">Community</button>
+        </nav>
+
+        <section class="content-grid">
+          <div class="videos" aria-live="polite"></div>
+
+          <aside class="sidebar">
+            <div class="panel">
+              <h3>Channel stats</h3>
+              <div class="stats-list">
+                <div class="stat-row"><span>Subscribers</span><strong>234</strong></div>
+                <div class="stat-row"><span>Total views</span><strong>109,511 views</strong></div>
+                <div class="stat-row"><span>Average watch time</span><strong>11m 32s</strong></div>
+                <div class="stat-row"><span>Engagement rate</span><strong>7.8%</strong></div>
+              </div>
+              <a class="mini-box live" id="live-status" href="https://www.youtube.com/channel/UC_wsV8p1jFdp9yO_O_FtA-g/live" target="_blank" rel="noopener noreferrer">LIVE NOW</a>
+            </div>
+
+            <div class="panel">
+              <h3>Connect</h3>
+              <div class="socials">
+                <a class="social email-link" href="mailto:jzthe60@gmail.com">Email me: jzthe60@gmail.com</a>
+              </div>
+            </div>
+          </aside>
+        </section>
+      </main>
+    </div>
+
+    <script>
+      const videos = [
+        { id: 'g9nOa6gioT8', title: 'Spiderman Edit! #spiderman #spiderman2 #spider #spidermanremastered', views: 1180, published: '2026-10-12', category: 'Shorts' },
+        { id: 'xTssHyjU8MU', title: 'Surprise motherfu#### #spiderman #spider #surprisemoment', views: 1351, published: '2026-10-11', category: 'Shorts' },
+        { id: 'JgusDSTMgR8', title: 'The power of ER:LC #roblox #helpmemakethismakesense #funny #memes #gaming #footballdominance', views: 616, published: '2026-10-04', category: 'Shorts' },
+        { id: 'vz16g_TL460', title: 'New Video coming soon! #roblox #helpmemakethismakesense #amnewbutnottheleast #animalhospitalroblox', views: 160, published: '2026-10-04', category: 'Shorts' },
+        { id: 'KPiL8G7ozgQ', title: 'A true hero🫡 #haveitoldyoulatelythatiloveyou #lifeisbutadream #youareoneofakind #robloxedit', views: 1369, published: '2026-09-27', category: 'Shorts' },
+        { id: 'S19-S0Sa4-o', title: 'Work all day! #roblox #helpmemakethismakesense #amnewbutnottheleast #funny #animalhospitalroblox #hy', views: 132, published: '2026-09-21', category: 'Shorts' },
+        { id: 'AV6U0y242rY', title: 'Trying to aurafarm in the #2 biggest Highrock Sever😭 #helpmemakethismakesense #funny #gaming', views: 535, published: '2026-09-05', category: 'Shorts' },
+        { id: '2j0D71wrEkQ', title: 'Animal Hospital with VIEWERS', views: 6, published: '2026-08-23', category: 'Videos' },
+        { id: 'b1xRBHrPGO8', title: 'Animal Hospital with VIEWERS', views: 5, published: '2026-08-23', category: 'Videos' },
+        { id: 'n6gxWvJ8U3Y', title: 'Officer Why? #animalhospitalroblox #funny #fun #freeshlep #roblox', views: 1881, published: '2026-08-23', category: 'Shorts' },
+        { id: 'blIBRSR6EWw', title: 'Animal Hospital with VIEWERS', views: 3, published: '2026-08-17', category: 'Videos' },
+        { id: 'LKE0DZuWZ_w', title: 'Animal Hospital with VIEWERS', views: 4, published: '2026-08-17', category: 'Videos' },
+        { id: '9UAPiSNI8Io', title: '200 SUB SPECIAL!!!', views: 3, published: '2026-08-17', category: 'Videos' },
+        { id: '_0lQRQI_lvQ', title: '200 SUB SPECIAL!!!', views: 4, published: '2026-08-17', category: 'Videos' },
+        { id: 'N-r8MG-tD6g', title: 'Ranking Animal Hospital Moments! #roblox #animalhospitalroblox #stupide (Credit to Walker)', views: 28352, published: '2026-08-16', category: 'Shorts' }
+      ];
+
+      const videoGrid = document.querySelector('.videos');
+      const tabs = document.querySelectorAll('.tab');
+      const searchInput = document.querySelector('.search-box input');
+      const searchButton = document.querySelector('.search-btn');
+      const createButton = document.querySelector('.create-btn');
+      const menuButton = document.querySelector('[aria-label="Menu"]');
+      const toast = document.createElement('div');
+      toast.className = 'toast';
+      document.body.appendChild(toast);
+
+      let activeTab = 'Home';
+
+      function showToast(message) {
+        toast.textContent = message;
+        toast.classList.add('show');
+        clearTimeout(showToast.timeoutId);
+        showToast.timeoutId = setTimeout(() => {
+          toast.classList.remove('show');
+        }, 1800);
+      }
+
+      function renderVideos() {
+        const query = searchInput.value.trim().toLowerCase();
+
+        const filtered = videos.filter((video) => {
+          const matchesTab = activeTab === 'Home' || video.category === activeTab;
+          const haystack = `${video.title} ${video.category} ${video.views}`.toLowerCase();
+          const matchesQuery = !query || haystack.includes(query);
+          return matchesTab && matchesQuery;
+        });
+
+        if (!filtered.length) {
+          videoGrid.innerHTML = '<div class="video-empty">No videos match your search.</div>';
+          return;
+        }
+
+        videoGrid.innerHTML = filtered.map((video) => `
+          <a class="video-card" href="https://www.youtube.com/${video.category === 'Shorts' ? 'shorts' : 'watch?v'}${video.category === 'Shorts' ? '/' : '='}${video.id}" target="_blank" rel="noopener noreferrer">
+              <img class="thumb" src="https://i.ytimg.com/vi/${video.id}/hqdefault.jpg" alt="" loading="lazy" />
+              <div class="video-info">
+                <h4 class="video-title">${video.title}</h4>
+                <div class="video-meta">
+                  <span>${video.views.toLocaleString()} views</span>
+                  <span>•</span>
+                  <span>${new Date(`${video.published}T00:00:00`).toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' })}</span>
+                </div>
+              </div>
+          </a>
+        `).join('');
+      }
+
+      tabs.forEach((tab) => {
+        tab.addEventListener('click', () => {
+          activeTab = tab.dataset.tab;
+          tabs.forEach((button) => button.classList.toggle('active', button === tab));
+          renderVideos();
+        });
+      });
+
+      searchInput.addEventListener('input', renderVideos);
+      searchButton.addEventListener('click', () => {
+        showToast(`Showing results for: "${searchInput.value.trim() || 'all videos'}"`);
+        renderVideos();
+      });
+
+      searchInput.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter') {
+          showToast(`Showing results for: "${searchInput.value.trim() || 'all videos'}"`);
+          renderVideos();
+        }
+      });
+
+      createButton.addEventListener('click', () => {
+        showToast('Upload studio opened');
+      });
+
+      menuButton.addEventListener('click', () => {
+        showToast('Menu opened');
+      });
+
+      renderVideos();
+    </script>
+  </body>
+</html>
